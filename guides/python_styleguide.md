@@ -331,6 +331,27 @@ Act.objects.create(
 
 Всё, что не нужно прямо сейчас и не понадобится в течение месяца – под нож.
 
+## Данные в настройках
+
+Мы не храним данные в коде, и в частности в настройках. Такие вещи всегда можно вынести в БД с помощью `BooleanField` или новых сущностей.
+
+Плохо:
+
+```python
+# settings.py
+OZON_IDS = [123, 456, 789]
+
+# code
+send_slack_notification(OZON_IDS)
+```
+
+Хорошо:
+
+```python
+# Бывшие OZON_IDS. Теперь это просто компании с галочкой notify_in_slack
+company_ids = Company.objects.filter(notify_in_slack=True).value_list('id', flat=True)
+send_slack_notification(company_ids)
+```
 
 ## Правила для полей Django-моделей
 
