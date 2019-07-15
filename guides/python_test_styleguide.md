@@ -81,7 +81,7 @@ def n_patients_factory(patient_factory):
         return patient_factory.create_batch(patients_num)
 ```
 
-Это нужно делать в тесте.
+Такие вещи лучше реализовывать в виде метода на фабрике. Это позволит избежать дубликации усилий.
 
 ## Порядок аргументов теста
 
