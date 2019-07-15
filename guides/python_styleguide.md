@@ -340,4 +340,9 @@ Act.objects.create(
 4. Если у поля есть `choices`, то оформляем его через `Enum`.
 5. У каждой модели сразу делаем `__str__` и проверяем, что оно не генерирует много запросов к БД.
 6. Всем полям типа `ForeignKey` обязательно указываем `related_name`.
+
+## Правила для Django urls
+
+ 1. В `urls.py` приложения не используем декораторы. Для Class-based views используем `method_decorator` для cоответствующих типов HTTP запросов, подробнее можно почитать о данном декораторе в [официальной документации Django](https://docs.djangoproject.com/en/2.2/topics/class-based-views/intro/#decorating-the-class).
+ 
  
