@@ -10,10 +10,9 @@
 
 Эти гайдлайны являются _вводными_. Добавлять сразу много строгих правил сложно и непрактично, лучше начать с малого.
 
-
 ## Отношение к другим документам
 
-Этот документ дополняет [Python Styleguide](https://github.com/best-doctor/guides/blob/master/guides/python_styleguide.md). При конфликте правил этот документ имеет преимущество.
+Во время написания тестов соблюдается [Python Styleguide](https://github.com/best-doctor/guides/blob/master/guides/python_styleguide.md).
 
 ## Куда класть тесты
 
