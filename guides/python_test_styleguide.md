@@ -101,7 +101,13 @@ def n_patients_factory(patient_factory):
 )
 @pytest.mark.django_db
 def test_foo_bar_success_case(param1, param2, ..., foo_factory, ...):
-    # code ...
-    assert foo is bar
+    arrange()
+    
+    act()
+    
+    assert ...
 ```
 
+[Статья про паттерн AAA](https://medium.com/@pjbgf/title-testing-code-ocd-and-the-aaa-pattern-df453975ab80)
+
+Тест будет функциональным или юнитом в зависимости от того, какой код у него в `arrange`, `act` и `assert`.
