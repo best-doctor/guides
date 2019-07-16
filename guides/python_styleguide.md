@@ -331,6 +331,27 @@ Act.objects.create(
 
 Всё, что не нужно прямо сейчас и не понадобится в течение месяца – под нож.
 
+## Данные в настройках
+
+Мы стараемся класть данные туда, где им место, и в последнюю очередь храним их в настройках. Вот пример, в котором мы переносим данные в БД с помощью `BooleanField`:
+
+Было:
+
+```python
+# settings.py
+NOTIFY_IN_SLACK_COMPANY_IDS = [123, 456, 789]
+
+# code
+send_slack_notification(NOTIFY_IN_SLACK_COMPANY_IDS)
+```
+
+Стало:
+
+```python
+# Теперь это просто компании с галочкой notify_in_slack
+notify_in_slack_company_ids = Company.objects.filter(notify_in_slack=True).value_list('id', flat=True)
+send_slack_notification(notify_in_slack_company_ids)
+```
 
 ## Правила для полей Django-моделей
 
