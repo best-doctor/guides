@@ -51,7 +51,7 @@
 
 Чтобы избегать дубликации кода при написании тестов, мы их параметризируем с помощью `pytest.parameterize`. Благодаря этому `success_case`-тестов редко бывает больше одного.
 
-Если нужны пояснения к сообщениям об ошибках, мы используем [параметр ids](https://docs.pytest.org/en/latest/example/parametrize.html#different-options-for-test-ids).
+Бывает так, что из параметров непонятно, какое поведение тестировалось. Тогда группы параметров можно подписать с помощью [параметра ids](https://docs.pytest.org/en/latest/example/parametrize.html#different-options-for-test-ids).
 
 ## `pytest.mark.xfails` vs `pytest.raises`
 
