@@ -1,0 +1,1 @@
+rozental-as-a-service==0.1.0
