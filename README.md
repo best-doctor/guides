@@ -13,3 +13,5 @@
 - [Python testing styleguide](https://github.com/best-doctor/guides/blob/master/guides/python_test_styleguide.md)
 
 - [Team guide](https://github.com/best-doctor/guides/blob/master/guides/team_guide.md)
+
+- [API guide](https://github.com/best-doctor/guides/blob/master/guides/api_guide.md)
