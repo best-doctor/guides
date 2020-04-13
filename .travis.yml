@@ -5,3 +5,4 @@ before_script:
   - gem install mdl
 script:
   - rozental --reorder_vocabulary .
+  - mdl --style=.mdlrc.rb .
