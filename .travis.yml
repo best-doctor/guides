@@ -3,6 +3,5 @@ python:
   - "3.6"
 before_script:
   - gem install mdl
-  - pip install rozental_as_a_service
 script:
   - rozental --reorder_vocabulary .
