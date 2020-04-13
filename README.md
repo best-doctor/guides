@@ -1,5 +1,7 @@
 # `bestdoctor.guides`
 
+[![Build Status](https://travis-ci.org/best-doctor/guides.svg?branch=master)](https://travis-ci.org/best-doctor/guides)
+
 Сборник гайдов, которым следует команда разработки BestDoctor.
 
 Будем рады, если они пригодятся и вам.
