@@ -11,8 +11,8 @@
 
 ## Linting
 
-[eslint-config-bestdoctor](https://github.com/best-doctor/eslint-config-bestdoctor) 
-используем во всех проектах, при необходимости добавляем специфичные для проекта правила/плагины 
+[eslint-config-bestdoctor](https://github.com/best-doctor/eslint-config-bestdoctor)
+используем во всех проектах, при необходимости добавляем специфичные для проекта правила/плагины
 (например штуки про react-native для мобилки).
 
 Если проект не полностью соответствует конфигу из-за легаси - временно переводим сломанные правила в `warn`.
