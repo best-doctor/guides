@@ -38,7 +38,8 @@
 Тесты для `mail/signals.py` должны лежать в `mail/test_integration/tests.py` или `mail/tests/test_integration/test_signals.py`.
 
 Более общее правило: тесты для `<foo>/<bar>.py` находятся в `<foo>/test_<test_type>/tests.py`
-или в `<foo>/tests/test_<test_type>/test_<bar>.py`.
+или в `<foo>/tests/test_<test_type>/test_<bar>.py`. Если файл `test_<bar>.py` становится слишком большим,
+разносим его на отдельный модуль – `<foo>/tests/test_<test_type>/test_<bar>/test_<some_bar_feature>.py`
 
 ## `selenium` vs `django.test.Client`
 
@@ -113,7 +114,7 @@ def n_patients_factory(patient_factory):
 
 ```python
 @classmethod
-def create_batch_with_params(cls, patients_num: int, data_only: bool = False) -> List[Patient]
+def create_batch_with_params(cls, patients_num: int, data_only: bool = False) -> List[Patient]:
     if data_only:
         return cls.build_dict_batch(patients_num)
 
@@ -171,7 +172,15 @@ model_instance.set_another_value_and_save('field_name', value)
 ## Шаблон теста
 
 Мы придерживаемся паттерна ААА в структуре тестов.
+
 Соблюдать эту структуру важно, так как это увеличивает читаемость, а следовательно увеличивает полезность теста.
+Однако, если тест сводится к проверке вызова одной функции и не подразумевает большого сетапа, стоит оставить его
+однострочником. Например:
+
+```python
+def test_format_phone_number():
+    assert format_phone_number('88005553535') == '+7(800)-555-35-35'
+```
 
 [Статья про паттерн AAA](https://medium.com/@pjbgf/title-testing-code-ocd-and-the-aaa-pattern-df453975ab80)
 
