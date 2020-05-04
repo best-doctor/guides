@@ -19,3 +19,5 @@
 - [Performance review guide](https://github.com/best-doctor/guides/blob/master/guides/performance_review_guide.md)
 
 - [API guide](https://github.com/best-doctor/guides/blob/master/guides/api_guide.md)
+
+- [Opensource project guide](https://github.com/best-doctor/guides/blob/master/guides/opensource_guide.md)
