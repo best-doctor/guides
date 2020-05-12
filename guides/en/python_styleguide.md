@@ -4,39 +4,62 @@
 
 We are developing a huge product with tons of functionality. Moreover, we need to maintain and improve our existing codebase.
 
-In order to make this process as painless as possible, the code needs to be flexible, loosely coupled, comply with DRY and KISS principles... The list goes on. Otherwise, developers, technical support or the business itself will get an unpleasant surprise later down the line. And you want to avoid that.
+In order to make this process as painless as possible, the code needs to be
+flexible, loosely coupled, comply with DRY and KISS principles...
+The list goes on. Otherwise, developers, technical support or the business
+itself will get an unpleasant surprise later down the line.
+And you want to avoid that.
 
-In order to get the code that meets our standards, we need to constantly keep our focus. That in itself can be quite challenging as it requires a lot more awareness than simply writing code. We made this styleguide, so it can help us keep track of our solutions to most common problems, instead of having to reinvent the wheel each time one of those problems comes up.
+In order to get the code that meets our standards,
+we need to constantly keep our focus. That in itself can be quite challenging
+as it requires a lot more awareness than simply writing code.
+We made this styleguide, so it can help us keep track of our solutions
+to most common problems, instead of having to reinvent the wheel each
+time one of those problems comes up.
 
-This guide contains no rules, only guidelines. We follow these guidelines in order to write amazing code and not just for the sake of following them.
+This guide contains no rules, only guidelines. We follow these
+guidelines in order to write amazing code and not just
+for the sake of following them.
 
-It is also very important to us that our code satisfies our team. That's why the guidelines below represent our personal preferences that may not align with yours.
+It is also very important to us that our code satisfies our team.
+That's why the guidelines below represent our personal preferences
+that may not align with yours.
 
 ## You are not required to follow these guidelines
 
-As a matter of fact, in some cases it is better not to follow this styleguide. There are situations when it is okay to write `import *`, `except Exception`, use tab indents or write really long lines of code. You can do that if you are absolutely certain that it will be beneficial to your codebase. However, those situations are quite rare.
+As a matter of fact, in some cases it is better not to follow this styleguide.
+There are situations when it is okay to write `import *`, `except Exception`,
+use tab indents or write really long lines of code.
+You can do that if you are absolutely certain that it will be beneficial
+to your codebase. However, those situations are quite rare.
 
 ## The latest Python release
 
-Use 3.8 in production. Use 3.8 in staging. Use 3.8 on every instance. Think in 3.8 as well.
+Use 3.8 in production. Use 3.8 in staging. Use 3.8 on every instance.
+Think in 3.8 as well.
 
 ## PEP8
 
-We love and follow PEP8 except for the maximum line length. We have set our upper-limit to 120 characters.
+We love and follow PEP8 except for the maximum line length.
+We have set our upper-limit to 120 characters.
 
 ## Comments
 
 ### No unnecessary comments
 
-There are rules that require writing comments in certain places, e.g. public modules, classes, methods.
+There are rules that require writing comments in certain places,
+e.g. public modules, classes, methods.
 
-We don't have such rules. We think that you should only write a comment when something in your code acts in an unexpected manner.
+We don't have such rules. We think that you should only write a comment
+when something in your code acts in an unexpected manner.
 
-If you can't figure out the purpose of an entity, then you should consider renaming it. Maybe it will help clear things up.
+If you can't figure out the purpose of an entity, then you should
+consider renaming it. Maybe it will help clear things up.
 
 ### Oneline docstrings
 
-A quick way to write a docstring which can fit in one line. Keep the comment and the quotation marks on the same line and don't forget a full-stop.
+A quick way to write a docstring which can fit in one line. Keep the comment
+and the quotation marks on the same line and don't forget a full-stop.
 
 Bad:
 
@@ -60,7 +83,11 @@ Good:
 
 ### Multiline docstrings
 
-Used when you need to provide a description which exceeds one line. Here's how it works: the first line should be used to describe what you are talking about. It ends with a full-stop. The first line and the description are separated by an empty line. There should be no spaces between the text and the quotation marks.
+Used when you need to provide a description which exceeds one line.
+Here's how it works: the first line should be used to describe
+what you are talking about. It ends with a full-stop.
+The first line and the description are separated by an empty line.
+There should be no spaces between the text and the quotation marks.
 
 Bad:
 
@@ -93,9 +120,12 @@ Functions as inteded when user has one or less slots
 
 ### Inline comments
 
-You can and you should use them when you need to describe tricky logic, refer to a ticket or to a wiki article.
+You can and you should use them when you need to describe tricky logic,
+refer to a ticket or to a wiki article.
 
-You shouldn't use them to make jokes, to describe a certain part of the code or to divide it into sections. Leave the first two for the water cooler conversations and the last one – for code refactoring.
+You shouldn't use them to make jokes, to describe a certain part of the code or
+to divide it into sections. Leave the first two for the water cooler
+conversations and the last one – for code refactoring.
 
 Bad:
 
@@ -122,15 +152,23 @@ Good:
 
 ### TODO and FIXME
 
-We use TODO and FIXME to mark something important when we don't want to get distracted while writing code. We try to remove them before making a commit. Instead of keeping those marks, we prefer to either fix those parts immediately or create a ticket to do it later.
+We use TODO and FIXME to mark something important when we don't want to get
+distracted while writing code. We try to remove them before making a commit.
+Instead of keeping those marks, we prefer to either fix those parts
+immediately or create a ticket to do it later.
 
-There are two reasons for doing so. One is that those marks can stay in the code for years and no one does anything about it. And two is that they make an impression that everything is broken.
+There are two reasons for doing so. One is that those marks can stay
+in the code for years and no one does anything about it.
+And two is that they make an impression that everything is broken.
 
-Keep your code improvement and refactoring tasks in the task tracker, not in your code.
+Keep your code improvement and refactoring tasks in the task tracker,
+not in your code.
 
 ### Inline comments and urls
 
-Leaving a link without a note in an inline comment is a bad idea. It's better to write a description because it will help others get the context without having to follow the link.
+Leaving a link without a note in an inline comment is a bad idea.
+It's better to write a description because it will help others get the context
+without having to follow the link.
 
 Bad:
 
@@ -148,9 +186,11 @@ Good:
 
 Use single quotes for string literals, but avoid using backslashes in strings.
 
-To format a string, use `.format` or f-strings with indexed or named placeholders. Do not concatenate strings with `+` operator.
+To format a string, use `.format` or f-strings with indexed or
+named placeholders. Do not concatenate strings with `+` operator.
 
-F-strings can be used, but you should avoid putting a lot of logic inside of them.
+F-strings can be used, but you should avoid putting a lot of logic
+inside of them.
 
 Bad:
 
@@ -172,11 +212,15 @@ Good:
 
 ## Imports
 
-Third-party libraries should be imported on a case by case basis, i.e. import only the functions and classes that you need. Do not import the entire module and for the love of god do not use `import *`. Resolve name collisions with `as` statement.
+Third-party libraries should be imported on a case by case basis,
+i.e. import only the functions and classes that you need.
+Do not import the entire module and for the love of god do not use `import *`.
+Resolve name collisions with `as` statement.
 
 Stadard library modules should be imported in their entirety.
 
-Imports should be divided into three sections as described in PEP8. There are no set rules for sorting the imports inside a section.
+Imports should be divided into three sections as described in PEP8.
+There are no set rules for sorting the imports inside a section.
 
 Bad:
 
@@ -203,11 +247,16 @@ from core.models import Patient
 
 ## Calls formatting
 
-Do not use line breaks if a call and all of its' arguments can fit into a single line.
+Do not use line breaks if a call and all of its' arguments can
+fit into a single line.
 
-If one line is not enough, but you can fit it in the next line after the first bracket, then you should do that.
+If one line is not enough, but you can fit it in the next line
+after the first bracket, then you should do that.
 
-If there are too many arguments or you can't fit a call into two lines, then use advanced formatting. In that case, you can place several arguments in the same line if they have similar meaning. For instance, you can combine `date_from` and `date_to` or `to` and `on_delete`.
+If there are too many arguments or you can't fit a call into two lines,
+then use advanced formatting. In that case, you can place several arguments
+in the same line if they have similar meaning. For instance, you can combine
+`date_from` and `date_to` or `to` and `on_delete`.
 
 Bad:
 
@@ -252,7 +301,8 @@ legal = models.ForeignKey(
 
 ## Function calls and arguments
 
-When calling a function, specify argument names if they are unclear from the name of the function alone.
+When calling a function, specify argument names if they are unclear from
+the name of the function alone.
 You may write them even if they are obvious.
 
 Bad:
@@ -269,9 +319,11 @@ serializer.is_valid(raise_exception=True)
 
 ## Commas
 
-Place a comma after the last item in any kind of iterable. This includes lists, calls, tuples or anything similar.
+Place a comma after the last item in any kind of iterable.
+This includes lists, calls, tuples or anything similar.
 
-If it fits in one line then we don't use a comma. The only exception is a one element `set`.
+If it fits in one line then we don't use a comma.
+The only exception is a one element `set`.
 
 Bad (forgot a comma in the end):
 
@@ -309,15 +361,23 @@ Act.objects.create(
 
 ## Unused code
 
-We want as few bugs as possible in our code. A great way to get rid of bugs is to get rid of code. No code means no problems. That's why we remove everything that can be removed, such as deprecated features, one-time scripts, pieces of code which have been commented out. All of it gets cut.
+We want as few bugs as possible in our code. A great way to get rid of bugs is
+to get rid of code. No code means no problems. That's why we remove everything
+that can be removed, such as deprecated features, one-time scripts,
+pieces of code which have been commented out. All of it gets cut.
 
-It's not difficult to recover it later. Since all commits are tied to a ticket in the task manager, to find removed code you need to first find the ticket, then its commits and then reapply them.
+It's not difficult to recover it later. Since all commits are tied to a ticket
+in the task manager, to find removed code you need to first find the ticket,
+then its commits and then reapply them.
 
 If there is something that you don't need this month then cut it.
 
 ## Data in settings
 
-We are doing our best to keep all of the data where it belongs. Project settings is definitely not the right place for it. Here's an example of how to move a piece of data from the settings to the database with the help of `BooleanField`:
+We are doing our best to keep all of the data where it belongs.
+Project settings is definitely not the right place for it.
+Here's an example of how to move a piece of data from the settings to the
+database with the help of `BooleanField`:
 
 Before:
 
