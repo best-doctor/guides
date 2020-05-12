@@ -410,5 +410,7 @@ send_slack_notification(notify_in_slack_company_ids)
 
 ## Rules for Django urls
 
-1. Don't use decorators inside an app's `urls.py`. Use  `method_decorator` in Class-Based Views for methods defined for their respective HTTP verbs. More info about this decorator can be found in
+1. Don't use decorators inside an app's `urls.py`. Use  `method_decorator` in
+   Class-Based Views for methods defined for their respective HTTP verbs.
+   More info about this decorator can be found in
   [oficial Django docs](https://docs.djangoproject.com/en/2.2/topics/class-based-views/intro/#decorating-the-class).
