@@ -21,3 +21,5 @@
 - [API guide](https://github.com/best-doctor/guides/blob/master/guides/api_guide.md)
 
 - [Opensource project guide](https://github.com/best-doctor/guides/blob/master/guides/opensource_guide.md)
+
+- [Airflow guide](https://github.com/best-doctor/guides/blob/master/guides/airflow_guide.md)
