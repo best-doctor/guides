@@ -217,7 +217,7 @@ i.e. import only the functions and classes that you need.
 Do not import the entire module and for the love of god do not use `import *`.
 Resolve name collisions with `as` statement.
 
-Stadard library modules should be imported in their entirety.
+Standard library modules should be imported in their entirety.
 
 Imports should be divided into three sections as described in PEP8.
 There are no set rules for sorting the imports inside a section.
