@@ -8,18 +8,18 @@
 
 ## Руководства
 
-- [Python styleguide](https://github.com/best-doctor/guides/blob/master/guides/python_styleguide.md) ([eng](https://github.com/best-doctor/guides/blob/master/guides/en/python_styleguide.md))
+- [Python styleguide](./guides/python_styleguide.md) ([eng](./guides/en/python_styleguide.md))
 
-- [Frontend styleguide](https://github.com/best-doctor/guides/blob/master/guides/frontend_styleguide.md)
+- [Frontend styleguide](./guides/frontend_styleguide.md)
 
-- [Python testing styleguide](https://github.com/best-doctor/guides/blob/master/guides/python_test_styleguide.md)
+- [Python testing styleguide](./guides/python_test_styleguide.md)
 
-- [Team guide](https://github.com/best-doctor/guides/blob/master/guides/team_guide.md)
+- [Team guide](./guides/team_guide.md)
 
-- [Performance review guide](https://github.com/best-doctor/guides/blob/master/guides/performance_review_guide.md)
+- [Performance review guide](./guides/performance_review_guide.md)
 
-- [API guide](https://github.com/best-doctor/guides/blob/master/guides/api_guide.md)
+- [API guide](./guides/api_guide.md)
 
-- [Opensource project guide](https://github.com/best-doctor/guides/blob/master/guides/opensource_guide.md)
+- [Opensource project guide](./guides/opensource_guide.md)
 
-- [Airflow guide](https://github.com/best-doctor/guides/blob/master/guides/airflow_guide.md)
+- [Airflow guide](./guides/airflow_guide.md)
