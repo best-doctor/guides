@@ -23,3 +23,5 @@
 - [Opensource project guide](./guides/opensource_guide.md)
 
 - [Airflow guide](./guides/airflow_guide.md)
+
+- [Infrastructure security guide](./guides/infra_infosec_guide.md)
