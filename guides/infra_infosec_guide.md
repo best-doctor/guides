@@ -8,21 +8,21 @@
 
 ## Что мы делаем
 
-Мы используем подход Configuration as code и Infrastructure as code для того чтобы понимать что изменяется в нашей
+Мы используем подходы Configuration as code и Infrastructure as code для того чтобы понимать что изменяется в нашей
 инфраструктуре, кем и с какой целью. Для этого мы используем инструменты автоматизации: ansible, gitlab, terraform.
 
 Мы хотим тестировать применённую конфигурацию на соответствие разумным требованиям безопасности данных и хостов,
 предоставляемыми нашим бизнесом, согласовывая их с общепринятыми базовыми требованиями от сообщества.
-Поэтому мы используем инструмент для тестирования конфигурации [Chef Inspec](inspec.io) и следим за развитием
-проекта [DevSec Hardening Framework](dev-sec.io)
+Поэтому мы используем инструмент для тестирования конфигурации [Chef Inspec](https://inspec.io) и следим за развитием
+проекта [DevSec Hardening Framework](https://dev-sec.io/)
 
 ### Список импортированных и применённых профилей для Chef Inspec
 
 |профиль | источник |
 |---|---|
-| linux baseline | [linux-baseline](/dev-sec/linux-baseline) |
-| ssh-baseline |[ssh-baseline](/dev-sec/ssh-baseline)|
-| docker-baseline |[docker-baseline](/dev-sec/docker-baseline)|
+| linux baseline | [linux-baseline](https://github.com/dev-sec/linux-baseline) |
+| ssh-baseline |[ssh-baseline](https://github.com/dev-sec/ssh-baseline)|
+| docker-baseline |[docker-baseline](https://github.com/dev-sec/cis-docker-benchmark)|
 | bestdoctor-inhouse-profile|WIP|
 
 Мы хотим следить за базами уязвимостей/уязвимых пакетов в используемых дистрибутивах и своевременно обновлять ПО.
