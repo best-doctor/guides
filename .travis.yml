@@ -1,6 +1,6 @@
 language: python
 python:
-  - "3.9-dev"
+  - "3.9"
 before_script:
   - gem install mdl
 script:
