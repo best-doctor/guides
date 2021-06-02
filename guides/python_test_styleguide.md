@@ -174,7 +174,7 @@ def test_format_phone_number():
 
 ```python
 @pytest.mark.parametrize(
-    'param1, param2, ...',
+    ('param1', 'param2', '...'),
     [
         (value11, value12, ...),
         (value21, value22, ...),
