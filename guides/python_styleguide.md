@@ -471,4 +471,3 @@ send_slack_notification(notify_in_slack_company_ids)
 1. В `urls.py` приложения не используем декораторы. Для Class-based views используем `method_decorator` для
   cоответствующих типов HTTP запросов, подробнее можно почитать о данном декораторе в
   [официальной документации Django](https://docs.djangoproject.com/en/2.2/topics/class-based-views/intro/#decorating-the-class).
-
