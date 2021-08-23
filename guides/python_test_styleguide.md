@@ -138,20 +138,6 @@ def create_batch_with_params(cls, patients_num: int, data_only: bool = False) ->
 Тесты, как и любой код, должны придерживаться стайлгайдов и лучших практик.
 Для этого мы выносим переиспользуемые вещи в фабрики и фикстуры, используем хелперы.
 
-Например, частым действием в тестах является присвоение и сохранение в базу какого-то значения:
-
-```python
-model_instance.field_name = 'foo'
-model_instance.save()
-```
-
-Такие вещи лучше выносить в фабричные методы. Это даст лучший API, повысит читаемость и сократит количество бойлерплейта.
-
-```python
-value = 'foo'
-model_instance.set_another_value_and_save('field_name', value)
-```
-
 ## Как тестировать интеграции со сторонними сервисами
 
 Мы используем интеграционные тесты для проверки подобных сценариев.
@@ -188,7 +174,7 @@ def test_format_phone_number():
 
 ```python
 @pytest.mark.parametrize(
-    'param1, param2, ...',
+    ('param1', 'param2', '...'),
     [
         (value11, value12, ...),
         (value21, value22, ...),

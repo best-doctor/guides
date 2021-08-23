@@ -35,8 +35,8 @@ to your codebase. However, those situations are quite rare.
 
 ## The latest Python release
 
-Use 3.8 in production. Use 3.8 in staging. Use 3.8 on every instance.
-Think in 3.8 as well.
+Use 3.9 in production. Use 3.9 in staging. Use 3.9 on every instance.
+Think in 3.9 as well.
 
 ## PEP8
 
