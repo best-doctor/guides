@@ -423,7 +423,7 @@ Suppose we have three services: `tinker`, `tailor`, `soldier` [, `spy`].
 
 A queue, which is populated and consumed by `tinker` itself, would be called `tinker-default`.
 Having need for multiple queues,
-one might distinct them with qualifiers like `{consuming service name}-{qual1}-{qualN}, ex:
+one might distinct them with qualifiers like `{consuming service name}-{qual1}-{qualN}`, ex:
 `tinker-heavy`, `tinker-light-long`, etc.
 
 As for service interaction, `{consuming service name}-rpc` looks good.
