@@ -414,3 +414,19 @@ send_slack_notification(notify_in_slack_company_ids)
    Class-Based Views for methods defined for their respective HTTP verbs.
    More info about this decorator can be found in
   [oficial Django docs](https://docs.djangoproject.com/en/2.2/topics/class-based-views/intro/#decorating-the-class).
+
+
+## Queue naming convention
+The main idea is to have queue name prefixed with consuming service name.
+
+Suppose we have three services: `tinker`, `tailor`, `soldier` [, `spy`].
+
+A queue, which is populated and consumed by `tinker` itself, would be called `tinker-default`.
+Having need for multiple queues,
+one might distinct them with qualifiers like `{consuming service name}-{qual1}-{qualN}, ex:
+`tinker-heavy`, `tinker-light-long`, etc.
+
+As for service interaction, `{consuming service name}-rpc` looks good.
+For example, a queue, which is used by `tinker` to send data to `soldier`,
+would be named `soldier-rpc`.
+Note, that the name has to be the same on the both parties (`tinker`, `soldier`).
