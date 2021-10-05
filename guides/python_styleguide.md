@@ -469,7 +469,7 @@ send_slack_notification(notify_in_slack_company_ids)
 1. Если у поля есть `choices`, то оформляем его через `django.db.models.TextChoices` или `django.db.models.IntegerChoices`.
 1. У каждой модели сразу делаем `__str__` и проверяем, что оно не генерирует много запросов к БД.
 1. Всем полям типа `ForeignKey` обязательно указываем `related_name`.
-1. Если нужно получить айди модели, используем `.pk`, а не `.id`. 
+1. Если нужно получить айди модели, используем `.pk`, а не `.id`.
 
 ## Правила для Django urls
 

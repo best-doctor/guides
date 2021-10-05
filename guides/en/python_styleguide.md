@@ -43,6 +43,8 @@ Think in 3.9 as well.
 We love and follow PEP8 except for the maximum line length.
 We have set our upper-limit to 120 characters.
 
+We use [black](https://github.com/psf/black) with single quotes.
+
 ## Comments
 
 ### No unnecessary comments
@@ -211,6 +213,8 @@ Good:
 ```
 
 ## Imports
+
+We use [isort](https://github.com/PyCQA/isort).
 
 Third-party libraries should be imported on a case by case basis,
 i.e. import only the functions and classes that you need.
@@ -403,7 +407,8 @@ send_slack_notification(notify_in_slack_company_ids)
   [flake8-class-attributes-order](https://github.com/best-doctor/flake8-class-attributes-order).
 1. `DateTimeField` names should end with `_at`.
 1. `DateField` names should end with `_date`.
-1. If a field has `choices` attribute, then it should be implemented using `Enum`.
+1. For `models.CharField` we use `max_length=255`.
+1. If a field has `choices` attribute, then it should be implemented using `django.db.models.TextChoices` or `django.db.models.IntegerChoices`.
 1. Define `__str__` method for each model. Make sure that it does not generate a lot of database queries.
 1. Every `ForeignKey` field must have a defined `related_name`.
 1. Use `.pk` instead of `.id` to get the model identificator.
