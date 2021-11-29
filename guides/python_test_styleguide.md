@@ -121,6 +121,43 @@ def create_batch_with_params(cls, patients_num: int, data_only: bool = False) ->
     return cls.create_batch(patients_num)
 ```
 
+## Уникальные поля моделей в фабриках
+
+### Поля с choices или related
+
+Если у модели есть [UniqueConstraint](https://docs.djangoproject.com/en/3.2/ref/models/constraints/#uniqueconstraint) или поля с `unique=True`, то нужно
+добавлять в фабрики [django_get_or_create](https://factoryboy.readthedocs.io/en/stable/orms.html#factory.django.DjangoOptions.django_get_or_create)
+
+### Текстовые поля
+
+Если у модели есть текстовое поле с `unique=True`, то нужно переопределить генерацию этого поля в фабрике
+и добавить к значению `step.sequence`. Что бы при создании нескольких
+сущностей их значение было гарантированно уникальным.
+
+Например, при помощи такого кода:
+
+`utils/factories.py`:
+```python
+from factory import Faker
+from factory.builder import BuildStep
+
+class UniqueStringMixin(Faker):
+    def evaluate(self, instance: Any, step: BuildStep, extra: Any) -> str:
+        value = super().evaluate(instance, step, extra)
+        return f'{step.sequence} {value}'
+```
+
+`app/tests/factories.py`:
+```python
+from utils.factories import UniqueStringMixin
+
+class CompanyFactory(DjangoModelFactory):
+    class Meta:
+        model = Company
+
+    title = UniqueStringMixin('word')
+```
+
 ## Аргументы и ассерты теста
 
 Тесты нужно держать в чистоте и не перегружать зависимости. Поэтому стоит следить за количеством аргументов теста.
