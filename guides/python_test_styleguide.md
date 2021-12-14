@@ -41,6 +41,13 @@
 или в `<foo>/tests/test_<test_type>/test_<bar>.py`. Если файл `test_<bar>.py` становится слишком большим,
 разносим его на отдельный модуль – `<foo>/tests/test_<test_type>/test_<bar>/test_<some_bar_feature>.py`
 
+## Как именовать тесты
+
+Именование тестов должно отображать тестируемую сущность и тестируемый кейс, схема выглядит так: `test__<функция>__<уточнение кейса>`.
+Если возникли сложности с уточнением кейса, возможно ваш тест стоит разбить на несколько.
+
+Примеры: `test__create_company__without_company_service_period`, `test__create_company__with_active_company_service_period`
+
 ## `selenium` vs `django.test.Client`
 
 Чтобы протестировать фичу полностью, мы используем `django.test.Client`.
@@ -81,6 +88,9 @@
 ## `mock`
 
 Мы используем фикстуру `mocker` из плагина `pytest-mock` для патчинга походов в сеть и асинхронных задач в легковесных юнит-тестах.
+
+Фикстура которая мокает метод и возвращает `mock` объект должна именоваться с префиксом `mock_`.
+Сам мокнутый метод должен иметь префикс `mocked_`.
 
 ## `factory_boy`
 
@@ -191,6 +201,25 @@ class CompanyFactory(DjangoModelFactory):
  При добавлении новой фичи, закрытой за фичафлагом, пишется функциональный/юнит тест на эту логику с нужным декоратором
  с параметром `active=True`. Если на старую логику тест существует, то он оборачивается в декоратор с параметром
  `active=False`. Этот подход позволяет быстро приводить в порядок тесты при выпиливании протестированных фичафлагов.
+
+## Решения известных проблем
+
+### Разогрев кеша ContentType
+
+Из-за агрессивного кеширования Django запросов к `ContentType` количество запросов может меняться в зависимости от
+способа запуска тестов. Это может отразиться на тестах использующих `django_assert_num_queries`.
+
+В качестве решения при запуске тестов мы принудительно разогреваем кеш:
+
+```python
+@pytest.fixture(scope='session')
+def django_db_setup(django_db_setup, django_db_blocker):  # noqa: PT004
+    with django_db_blocker.unblock():
+        # Кешируем ContentType для django_assert_num_queries
+        content_type_ids = ContentType.objects.values_list('id', flat=True)
+        for ct_id in content_type_ids:
+            ContentType.objects.get_for_id(ct_id)
+```
 
 ## Шаблон теста
 
