@@ -12,7 +12,7 @@
 ## Linting
 
 ### [eslint-config-bestdoctor](https://github.com/best-doctor/eslint-config-bestdoctor)
-используем во всех проектах, при необходимости добавляем специфичные для проекта правила/плагины (например штуки про react-native для мобилки).
+Используем во всех проектах, при необходимости добавляем специфичные для проекта правила/плагины (например штуки про react-native для мобилки).
 
 Если проект не полностью соответствует конфигу из-за легаси - временно переводим сломанные правила в `warn`.
 По мере рефакторинга все должно быть поправлено и все исключения убраны.
@@ -62,11 +62,16 @@
 Допускаются только в директориях из которой по логике в большинстве случаев используется большая часть компонентов. Было бы хорошо иметь api к сущностям и фичам в виде индексных реэкспортов, но пока нет tree-shaking'а нормально обрабатывающего такие случаи - бандлы раздуваются и приложение затормаживается.
 Также реэкспорты делают более сложным нахождение мёртвого кода (он тоже зло т.к. тратит время на сопровождение).
 
-### Хранения данных и стейта
+### Хранение данных и стейта
 #### Работа с backend'ом
 Для работы с бэкендом используется [react-query](https://www.npmjs.com/package/react-query)
+
+##### Ключи кэширования
 Полезная статья по работе с ключами кэша: [Effective React Query Keys](https://tkdodo.eu/blog/effective-react-query-keys)
-Фабрика генерации ключей:
+
+Для генерации ключей кэшей запросов используется фабрика ключей с поддержкой единичных и списочных запросов.
+
+Код фабрики генерации ключей:
 ```TypeScript
 export function getRequestsKeys<TListKeys, TItemKeys = string>(entityName: string) {
   return {
@@ -78,9 +83,170 @@ export function getRequestsKeys<TListKeys, TItemKeys = string>(entityName: strin
   }
 }
 ```
+где:
+- `entityName` - название сущности
+- `TListKeys` - интерфейс параметров запроса списка, обязательный параметр
+- `TItemKeys` - интерфейс запроса единичной сущности, опционально, по умолчанию - строка
+
+###### Пример использования
+
+Создание фабрики ключей:
+```TypeScript
+interface ListEntityParams {
+  search: string;
+  page: number;
+  per_page?: number;
+}
+
+const entityRequestsKeys = getRequestsKeys<ListEntityParams>('entity')
+```
+
+Использование в запросах:
+```TypeScript
+/**
+ * Получение единичной сущности
+*/
+function useEntity(uuid: string) {
+  return useQuery({
+    queryKey: entityRequestsKeys.item(uuid),
+    queryFn: () => getEntity(uuid),
+    staleTime: 60_000,
+  })
+}
+
+/**
+ * Получение списка сущностей
+ */
+function useEntityList(params: ListEntityParams) {
+  return useQuery({
+    queryKey: entityRequestsKeys.list(params),
+    queryFn: () => getEntityList(uuid),
+    staleTime: 60_000,
+  })
+}
+```
+
+Инвалидация кэшей:
+```TypeScript
+const client = useQueryClient()
+// Инвалидация всех запросов сущности
+client.invalidateQueries(entityRequestsKeys.all)
+// Инвалидация всех списков
+client.invalidateQueries(entityRequestsKeys.lists)
+// Инвалидация определенного запроса списка
+client.invalidateQueries(entityRequestsKeys.list(params))
+// Инвалидация всех единичных запросов сущности
+client.invalidateQueries(entityRequestsKeys.items)
+// Инвалидация единичного запроса сущности
+client.invalidateQueries(entityRequestsKeys.item(id))
+```
+
+##### Написание хуков запросов
+
+Для создания своего хука используется вариант useQuery с передачей всех параметров в виде объекта, данная форма показала себя максимально лаконичной и гибкой
+
+Пример обычного запроса:
+
+```TypeScript
+import { useQuery, UseQueryOptions } from 'react-query'
+
+// интерфейс ошибки запроса
+type FetchError = {}
+type Response = {
+  user: {
+    name: string
+    mail: string
+  }
+}
+type Options<Result> = Partial<UseQueryOptions<Response, FetchError, Result>>
+
+// Result - будет вычислен в случае указания нормализатора в options
+export function useUser<Result = Response>(uuid: string, options?: Options<Result>) {
+  return useQuery<Response, FetchError, Result>({
+    queryKey: userRequestsKeys.item(uuid),
+    queryFn: () => getUser(uuid),
+    // время жизни кэша запроса, зависит от характера данных
+    staleTime: 60_000,
+    ...options,
+  })
+}
+```
+
+Подгружаемые запросы списков реализуются аналогичным образом с использованием useInfiniteQuery:
+```TypeScript
+import { useInfiniteQuery, UseInfiniteQueryOptions } from 'react-query'
+
+// интерфейс ошибки запроса
+type FetchError = {}
+type Response = {
+  user: {
+    name: string
+    mail: string
+  }
+}[]
+type Options<Result> = Partial<UseInfiniteQueryOptions<Response, FetchError, Result>>
+
+export function useUser<Result = Response>(params: SearchUsersParams, options?: Options<Result>) {
+  return useInfiniteQuery<Response, FetchError, Result>({
+    queryKey: userRequestsKeys.list(params),
+    queryFn: () => getUsers(params),
+    staleTime: 60_000,
+    ...options,
+  })
+}
+```
+
+Мутации создаются тоже аналогичным образом:
+```TypeScript
+import { useMutation, MutationOptions } from 'react-query'
+
+// интерфейс ошибки запроса
+type FetchError = {}
+type Response = {
+  user: {
+    name: string
+    mail: string
+  }
+}
+type Options = MutationOptions<Response, FetchError, Result>
+
+export function useUpdateUser<Result = Response>(params: UpdateUserParams, options?: Options<Result>) {
+  const queryClient = useQueryClient()
+
+  return useMutation<Response, FetchError, Result>({
+    mutationFn: () => updateUser(params),
+    onSuccess: () => {
+      // инвалидируем все списки, если не знаем в какие именно входит данная запись
+      queryClient.invalidateQueries({ queryKey: userRequestsKeys.lists })
+      // инвалидируем запрос этой записи
+      queryClient.invalidateQueries({ queryKey: userRequestsKeys.item(params.id) })
+    },
+    ...options,
+  })
+}
+```
+
+##### Правила наименования хуков запросов
+- Запрос единичной записи - `use<EntityName>`, например: `useUser`
+- Специфический запрос записи - `use<EntityName><Specific>`, например: `useUserByEmail`
+- Запрос списка записей - `use<EntityNames>List`, например `useUsersList`
+- Запрос подгружаемого списка записей - чаще всего используется для запросов поиска, поэтому - `useInfiniteSearch<EntityNames>`, например: `useInfiniteSearchUsera`. Если это не запрос поиска, то слово Search опускается и добавляется List - `useInfinite<EntityNames>List`/`useInfiniteUsersList`
+
+##### Правила наименования хуков мутаций
+Общий паттерн наименования - `use<Action><EntityName><?Field>`
+Action - производимое действие, чаще всего одно из update, create, remove
+Field - указание на поле, если действие производится только над ним
+
+Примеры:
+- Хук создания записи - `useCreateUser`
+- Хук удаления записи - `useRemoveUser`
+- Хук изменения всей записи - `useUpdateUser`
+- Хук изменения отдельного поля записи - `useUpdateUserName`
 
 #### Стейт формы
 Раздел в разработке
+
+Для хранения стейта формы используется библиотека [react-hook-form](https://www.npmjs.com/package/react-hook-form)
 
 #### Глобальные стейты
 По возможности избегаются. Всё что может быть локальным - делается локальным. Исключениями могут быть только вещи, которые действительно используются глобально - авторизация, стейт виджета, используемого на множестве страниц и т.д., для них допускается использование контекста.
@@ -93,8 +259,7 @@ export function getRequestsKeys<TListKeys, TItemKeys = string>(entityName: strin
 
 #### Размер файла
 
-Чем меньше - тем лучше. Проще воспринимать 5 файлов по 100 строк чем один по 500. При этом разбивание должно быть
-максимально логичным - выделяем обособленные куски и выносим их в component parts либо subcomponents.
+Чем меньше - тем лучше. Проще воспринимать 5 файлов по 100 строк чем один по 500. При этом разбиение должно быть максимально логичным - выделяем обособленные куски и выносим их в component parts либо subcomponents.
 Объемную логику выносим в utils.
 
 ## Names
@@ -163,7 +328,7 @@ Boolean - с префиксами is, has, can, has, have, was etc.
 
 #### Параметры функции
 
-Если параметров один или два то можно передавать обычно ( `function foo(a: number, b: number)` ), иначе оборачиваются в объект ( `function foo({ a: number, b: number, c: string })` ).
+Если параметров один или два то можно передавать обычно ( `function foo(a: number, b: number)` ), иначе оборачиваются в объект ( `function foo({ a: number, b: number, c: string })` ). Можно даже единственный аргумент сразу заворачивать в объект для упрощения добавления новых в будущем.
 
 #### Композиция функций
 
