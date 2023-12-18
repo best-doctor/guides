@@ -123,7 +123,7 @@ HTTP/1.1 420 Going To Hell Error
   "errors": [
     {
       "resource": "Clinic",
-      "code": "timeslot_is_busy",
+      "code": "timeslot_is_busy"
     }
   ]
 }
@@ -147,14 +147,14 @@ HTTP/1.1 422 Unprocessable Entity
     {
       "resource": "Patient",
       "field": "patient_id",
-      "code": "readonly_field"
-      "message": "Id пациента нельзя редактировать",
+      "code": "readonly_field",
+      "message": "Id пациента нельзя редактировать"
     },
     {
       "resource": "Patient",
       "field": "phone",
-      "code": "wrong_phone_format"
-      "message": "Телефон должен содержать хотя бы одну цифру",
+      "code": "wrong_phone_format",
+      "message": "Телефон должен содержать хотя бы одну цифру"
     }
   ]
 }
