@@ -10,7 +10,9 @@
 
 - [Python styleguide](./guides/python_styleguide.md) ([eng](./guides/en/python_styleguide.md))
 
-- [Frontend styleguide](./guides/frontend_styleguide.md)
+- [Frontend Styleguide LUCHI](./guides/frontend-styleguide-luchi.md)
+
+- [Guide-skill workflow](./guides/guide_skill_workflow.md)
 
 - [Python testing styleguide](./guides/python_test_styleguide.md)
 
