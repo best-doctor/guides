@@ -2,7 +2,7 @@
 
 > Этот документ - primary source of truth для frontend-стандартов ЛУЧИ.
 >
-> Связанный skill: [frontend-styleguide-luchi](REPLACE_WITH_SKILL_REPO_URL)
+> Связанный skill: [frontend-styleguide-luchi](https://bestdoctor.gitlab.yandexcloud.net/bestdoctor/common/skills/-/tree/main/frontend-styleguide-luchi?ref_type=heads)
 >
 > Если skill неудобен, неполон или устарел, меняем этот гайд или процесс генерации skill, но не редактируем производный skill вручную.
 
